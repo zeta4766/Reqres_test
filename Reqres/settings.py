@@ -9,8 +9,6 @@ class TestUser(BaseModel):
 
 class Settings(BaseSettings):
     base_url: str = "https://reqres.in"
-    user_email: str = "eve.holt@reqres.in"
-    user_password: str = "cityslicka"
 
     @property
     def api_url(self) -> str:
@@ -20,24 +18,21 @@ class Settings(BaseSettings):
     def api_login(self) -> str:
         return f'{self.api_url}/login'
 
+    @property
+    def register_url(self):
+        return f'{self.api_url}/register'
+
     def user_url(self, user_id=0) -> str:
         if user_id:
             return f'{self.api_url}/users/{user_id}'
         else:
             return f'{self.api_url}/users'
 
-    def resource_url(self):
-        return f'{self.api_url}/unknown'
-
-    def register_url(self):
-        return f'{self.api_url}/register'
-
-    @property
-    def user(self) -> TestUser:
-        return TestUser(
-            email=self.user_email,
-            password=self.user_password
-        )
+    def resource_url(self, resource_id=0):
+        if resource_id:
+            return f'{self.api_url}/unknown/{resource_id}'
+        else:
+            return f'{self.api_url}/unknown'
 
 
 base_settings = Settings()

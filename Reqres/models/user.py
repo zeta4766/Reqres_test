@@ -81,9 +81,45 @@ class CreatedUser(BaseModel):
     id: str
     createdAt: str
 
+
 class UpdatedUser(BaseModel):
     name: str
     job: str
     updated_at: str = Field(
         alias="updatedAt",
     )
+
+
+class Data(BaseModel):
+    id: int
+    name: str
+    year: int
+    color: str
+    pantone_value: str
+
+
+class Support(BaseModel):
+    url: str
+    text: str
+
+
+class ResponseData(BaseModel):
+    data: Data
+    support: Support
+
+
+class Color(BaseModel):
+    id: int
+    name: str
+    year: int
+    color: str
+    pantone_value: str
+
+
+class ResponseDataList(BaseModel):
+    page: int
+    per_page: int
+    total: int
+    total_pages: int
+    data: List[Color]
+    support: Support
