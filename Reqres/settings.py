@@ -26,6 +26,12 @@ class Settings(BaseSettings):
         else:
             return f'{self.api_url}/users'
 
+    def resource_url(self):
+        return f'{self.api_url}/unknown'
+
+    def register_url(self):
+        return f'{self.api_url}/register'
+
     @property
     def user(self) -> TestUser:
         return TestUser(
