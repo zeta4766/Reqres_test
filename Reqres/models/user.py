@@ -31,6 +31,7 @@ class RegisterSuccessUserModel(BaseModel):
     id: int
     token: str
 
+
 class LogRegErrorUserModel(BaseModel):
     error: str
 
@@ -48,6 +49,7 @@ class ExampleListModel(BaseModel):
     data: List[DataModel]
     support: SupportModel
 
+
 class LoginInputModel(BaseModel):
     email: str = Field(
         alias="email",
@@ -58,5 +60,24 @@ class LoginInputModel(BaseModel):
         default="cityslicka"
     )
 
+
 class LoginSuccessfulModel(BaseModel):
     token: str
+
+
+class CreateUserData(BaseModel):
+    name: str = Field(
+        alias="name",
+        default="morpheus"
+    )
+    job: str = Field(
+        alias="job",
+        default="leader"
+    )
+
+
+class CreatedUser(BaseModel):
+    name: str
+    job: str
+    id: str
+    createdAt: str

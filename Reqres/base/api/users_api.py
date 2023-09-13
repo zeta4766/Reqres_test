@@ -3,8 +3,8 @@ import json
 import requests
 
 
-def get_api(url: str):
-    response = requests.get(url)
+def get_api(url: str, params=''):
+    response = requests.get(url, params=params)
     text = json.loads(response.content)
     return response.status_code, text
 
