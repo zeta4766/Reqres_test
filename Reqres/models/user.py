@@ -1,5 +1,4 @@
 from typing import List
-
 from pydantic import BaseModel, HttpUrl, Field
 
 
@@ -65,7 +64,7 @@ class LoginSuccessfulModel(BaseModel):
     token: str
 
 
-class CreateUserData(BaseModel):
+class CreateUpdateUserData(BaseModel):
     name: str = Field(
         alias="name",
         default="morpheus"
@@ -81,3 +80,10 @@ class CreatedUser(BaseModel):
     job: str
     id: str
     createdAt: str
+
+class UpdatedUser(BaseModel):
+    name: str
+    job: str
+    updated_at: str = Field(
+        alias="updatedAt",
+    )

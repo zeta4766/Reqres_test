@@ -1,12 +1,8 @@
-import json
 import unittest
 from http import HTTPStatus
 
-from unicodedata import name
-
-from Reqres.base.api.users_api import get_api, post_api
+from Reqres.base.api.users_api import *
 from Reqres.settings import base_settings
-import requests
 from Reqres.models.user import *
 
 
@@ -27,9 +23,24 @@ class TestUser(unittest.TestCase):
         ExampleListModel.model_validate(text)
 
     def test_create_user(self):
-        model = CreateUserData()
+        model = CreateUpdateUserData()
         status_code, text = post_api(base_settings.user_url(), model)
         self.assertEqual(status_code, HTTPStatus.CREATED)
         CreatedUser.model_validate(text)
 
-    
+    def test_update_user_put(self):
+        model = CreateUpdateUserData()
+        status_code, text = put_api(base_settings.user_url(2), model)
+        self.assertEqual(status_code, HTTPStatus.OK)
+        UpdatedUser.model_validate(text)
+
+    def test_update_user_patch(self):
+        model = CreateUpdateUserData()
+        status_code, text = patch_api(base_settings.user_url(2), model)
+        self.assertEqual(status_code, HTTPStatus.OK)
+        UpdatedUser.model_validate(text)
+
+    def test_delete_user(self):
+        status_code = delete_api(base_settings.user_url(2))
+        self.assertEqual(status_code, HTTPStatus.NO_CONTENT)
+
