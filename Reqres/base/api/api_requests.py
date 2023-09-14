@@ -9,23 +9,23 @@ def get_api(url: str, params=''):
 
 
 def post_api(url: str, payload):
-    response = requests.post(url, json=payload.model_dump())
+    response = requests.post(url, json=payload)
     text = json.loads(response.content)
     return response.status_code, text
 
 
 def put_api(url: str, payload):
-    response = requests.put(url, json=payload.model_dump())
+    response = requests.put(url, json=payload)
     text = json.loads(response.content)
     return response.status_code, text
 
 
 def patch_api(url: str, payload):
-    response = requests.patch(url, json=payload.model_dump())
+    response = requests.patch(url, json=payload)
     text = json.loads(response.content)
     return response.status_code, text
 
 
 def delete_api(url: str):
     response = requests.delete(url)
-    return response.status_code
+    return response.status_code, ''
