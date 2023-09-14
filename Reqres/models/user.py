@@ -15,26 +15,6 @@ class DataModel(BaseModel):
     avatar: HttpUrl
 
 
-class RegisterInputUserModel(BaseModel):
-    email: str = Field(
-        alias="email",
-        default="eve.holt@reqres.in"
-    )
-    password: str = Field(
-        alias="password",
-        default="pistol"
-    )
-
-
-class RegisterSuccessUserModel(BaseModel):
-    id: int
-    token: str
-
-
-class LogRegErrorUserModel(BaseModel):
-    error: str
-
-
 class UserModel(BaseModel):
     data: DataModel
     support: SupportModel
@@ -47,21 +27,6 @@ class ExampleListModel(BaseModel):
     total_pages: int
     data: List[DataModel]
     support: SupportModel
-
-
-class LoginInputModel(BaseModel):
-    email: str = Field(
-        alias="email",
-        default="eve.holt@reqres.in"
-    )
-    password: str = Field(
-        alias="password",
-        default="cityslicka"
-    )
-
-
-class LoginSuccessfulModel(BaseModel):
-    token: str
 
 
 class CreateUpdateUserData(BaseModel):
@@ -90,36 +55,4 @@ class UpdatedUser(BaseModel):
     )
 
 
-class Data(BaseModel):
-    id: int
-    name: str
-    year: int
-    color: str
-    pantone_value: str
 
-
-class Support(BaseModel):
-    url: str
-    text: str
-
-
-class ResponseData(BaseModel):
-    data: Data
-    support: Support
-
-
-class Color(BaseModel):
-    id: int
-    name: str
-    year: int
-    color: str
-    pantone_value: str
-
-
-class ResponseDataList(BaseModel):
-    page: int
-    per_page: int
-    total: int
-    total_pages: int
-    data: List[Color]
-    support: Support

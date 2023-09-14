@@ -48,16 +48,18 @@ def test_create_user():
     CreatedUser.model_validate(text)
 
 
-def test_update_user_put():
+@pytest.mark.parametrize("id_number", random_number(1, 12, 3))
+def test_update_user_put(id_number):
     model = CreateUpdateUserData()
-    status_code, text = put_api(base_settings.user_url(2), model)
+    status_code, text = put_api(base_settings.user_url(id_number), model)
     assert status_code == HTTPStatus.OK
     UpdatedUser.model_validate(text)
 
 
-def test_update_user_patch():
+@pytest.mark.parametrize("id_number", random_number(1, 12, 3))
+def test_update_user_patch(id_number):
     model = CreateUpdateUserData()
-    status_code, text = patch_api(base_settings.user_url(2), model)
+    status_code, text = patch_api(base_settings.user_url(id_number), model)
     assert status_code == HTTPStatus.OK
     UpdatedUser.model_validate(text)
 
