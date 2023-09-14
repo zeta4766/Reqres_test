@@ -1,6 +1,8 @@
 from typing import List
 from pydantic import BaseModel, HttpUrl, Field
 
+from Reqres.utils.data_generators import random_string
+
 
 class SupportModel(BaseModel):
     url: HttpUrl
@@ -32,11 +34,11 @@ class ExampleListModel(BaseModel):
 class CreateUpdateUserData(BaseModel):
     name: str = Field(
         alias="name",
-        default="morpheus"
+        default_factory=random_string
     )
     job: str = Field(
         alias="job",
-        default="leader"
+        default_factory=random_string
     )
 
 

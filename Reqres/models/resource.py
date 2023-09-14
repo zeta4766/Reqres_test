@@ -1,5 +1,5 @@
 from typing import List
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class Support(BaseModel):
@@ -8,7 +8,7 @@ class Support(BaseModel):
 
 
 class Data(BaseModel):
-    id: int
+    id: int = Field(..., gt=0)
     name: str
     year: int
     color: str
@@ -21,7 +21,7 @@ class ResponseData(BaseModel):
 
 
 class Color(BaseModel):
-    id: int
+    id: int = Field(..., gt=0)
     name: str
     year: int
     color: str

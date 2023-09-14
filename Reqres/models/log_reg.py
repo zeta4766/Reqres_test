@@ -14,7 +14,7 @@ class RegisterInputUserModel(BaseModel):
 
 
 class RegisterSuccessUserModel(BaseModel):
-    id: int
+    id: int = Field(..., gt=0)
     token: str
 
 
