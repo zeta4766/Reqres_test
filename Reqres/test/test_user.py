@@ -1,20 +1,12 @@
-import time
 from http import HTTPStatus
 
 import pytest
 
-from Reqres.base.api.users_api import *
+from Reqres.base.api.api_requests import *
 from Reqres.settings import base_settings
 from Reqres.models.user import *
 from Reqres.utils.data_generators import random_number
-
-
-def measure_execution_time(func):
-    start_time = time.perf_counter()
-    func()
-    end_time = time.perf_counter()
-    elapsed_time = end_time - start_time
-    return elapsed_time
+from Reqres.utils.measure_execution_time import measure_execution_time
 
 
 @pytest.mark.parametrize("id_number", random_number(1, 12, 3))

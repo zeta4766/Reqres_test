@@ -2,7 +2,7 @@ from http import HTTPStatus
 
 import pytest
 
-from Reqres.base.api.users_api import get_api
+from Reqres.base.api.api_requests import get_api
 from Reqres.models.resource import ResponseData, ResponseDataList
 from Reqres.settings import base_settings
 from Reqres.utils.data_generators import random_number
