@@ -1,5 +1,4 @@
 import time
-import unittest
 from http import HTTPStatus
 
 import pytest
@@ -7,53 +6,77 @@ import pytest
 from Reqres.base.api.users_api import *
 from Reqres.settings import base_settings
 from Reqres.models.user import *
+from Reqres.utils.data_generators import random_number
 
 
-class TestUser(unittest.TestCase):
-    def test_single_user(self):
-        status_code, text = get_api(base_settings.user_url(2))
-        unittest.TestCase.assertEqual(status_code, HTTPStatus.OK)
-        UserModel.model_validate(text)
-
-    def test_single_user_not_found(self):
-        status_code, text = get_api(base_settings.user_url(23))
-        self.assertEqual(status_code, HTTPStatus.NOT_FOUND)
-        assert text == {}
-
-    def test_list_users(self):
-        status_code, text = get_api(base_settings.user_url(), params={'page': 2, 'per_page': 1})
-        self.assertEqual(status_code, HTTPStatus.OK)
-        ExampleListModel.model_validate(text)
-
-    def test_create_user(self):
-        model = CreateUpdateUserData()
-        status_code, text = post_api(base_settings.user_url(), model)
-        self.assertEqual(status_code, HTTPStatus.CREATED)
-        CreatedUser.model_validate(text)
-
-    def test_update_user_put(self):
-        model = CreateUpdateUserData()
-        status_code, text = put_api(base_settings.user_url(2), model)
-        self.assertEqual(status_code, HTTPStatus.OK)
-        UpdatedUser.model_validate(text)
-
-    def test_update_user_patch(self):
-        model = CreateUpdateUserData()
-        status_code, text = patch_api(base_settings.user_url(2), model)
-        self.assertEqual(status_code, HTTPStatus.OK)
-        UpdatedUser.model_validate(text)
-
-    def test_delete_user(self):
-        status_code = delete_api(base_settings.user_url(2))
-        self.assertEqual(status_code, HTTPStatus.NO_CONTENT)
+def measure_execution_time(func):
+    start_time = time.perf_counter()
+    func()
+    end_time = time.perf_counter()
+    elapsed_time = end_time - start_time
+    return elapsed_time
 
 
-    def test_list_users_delay(self):
-        delay = 5
-        start_time = time.perf_counter()
-        status_code, text = get_api(base_settings.user_url(), params={'delay': delay})
-        assert status_code == HTTPStatus.OK
-        ExampleListModel.model_validate(text)
-        end_time = time.perf_counter()
-        elapsed_time = end_time - start_time
-        assert elapsed_time == pytest.approx(delay, abs=1)
+@pytest.mark.parametrize("id_number", random_number(1, 12, 3))
+def test_single_user(id_number):
+    status_code, text = get_api(base_settings.user_url(id_number))
+    assert status_code == HTTPStatus.OK
+    UserModel.model_validate(text)
+
+
+@pytest.mark.parametrize("id_number", random_number(13, 100, 3))
+def test_single_user_not_found(id_number):
+    status_code, text = get_api(base_settings.user_url(id_number))
+    assert status_code == HTTPStatus.NOT_FOUND
+    assert text == {}
+
+
+@pytest.mark.parametrize("page", [1, 2])
+@pytest.mark.parametrize("per_page", random_number(1, 6, 2))
+def test_list_users(page, per_page):
+    status_code, text = get_api(base_settings.user_url(),
+                                params={'page': page, 'per_page': per_page})
+    print(page, per_page)
+    assert status_code == HTTPStatus.OK
+    ExampleListModel.model_validate(text)
+
+
+def test_create_user():
+    model = CreateUpdateUserData()
+    status_code, text = post_api(base_settings.user_url(), model)
+    assert status_code == HTTPStatus.CREATED
+    CreatedUser.model_validate(text)
+
+
+def test_update_user_put():
+    model = CreateUpdateUserData()
+    status_code, text = put_api(base_settings.user_url(2), model)
+    assert status_code == HTTPStatus.OK
+    UpdatedUser.model_validate(text)
+
+
+def test_update_user_patch():
+    model = CreateUpdateUserData()
+    status_code, text = patch_api(base_settings.user_url(2), model)
+    assert status_code == HTTPStatus.OK
+    UpdatedUser.model_validate(text)
+
+
+@pytest.mark.parametrize("id_number", random_number(1, 12, 3))
+def test_delete_user(id_number):
+    status_code = delete_api(base_settings.user_url(id_number))
+    assert status_code == HTTPStatus.NO_CONTENT
+
+
+@pytest.mark.parametrize("delay", [1, 3, 5])
+def test_list_users_delay(delay):
+    status_code, text = get_api(base_settings.user_url(), params={'delay': delay})
+    assert status_code == HTTPStatus.OK
+    ExampleListModel.model_validate(text)
+
+
+@pytest.mark.parametrize("delay", [1, 3, 5])
+def test_time_list_users_delay(delay):
+    time_simple = measure_execution_time(test_list_users)
+    time_delay = measure_execution_time(lambda: test_list_users_delay(delay))
+    assert time_delay - time_simple - delay < 0.05

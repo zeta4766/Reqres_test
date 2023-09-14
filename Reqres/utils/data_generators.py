@@ -1,9 +1,10 @@
 from random import choice, randint
 from string import ascii_letters, digits
+from typing import List
 
 
-def random_number(start: int = 100, end: int = 1000) -> int:
-    return randint(start, end)
+def random_number(start: int = 100, end: int = 1000, count = 1) -> list[int]:
+    return [randint(start, end) for _ in range(count)]
 
 
 def random_string(start: int = 9, end: int = 15) -> str:
