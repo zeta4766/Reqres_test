@@ -35,6 +35,7 @@ def test_get_delete(page, test_name, method):
     if method != 'delete':
         assert json.loads(json.dumps(text)) == json.loads(page.out_response())
 
+
 @pytest.mark.parametrize('test_name, method', [
     ('create_user', 'post'),
     ('register_successful', 'post'),
