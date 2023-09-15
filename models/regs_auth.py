@@ -1,14 +1,18 @@
 from pydantic import BaseModel, Field
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 class RegisterInputUserModel(BaseModel):
     email: str = Field(
         alias="email",
-        default="eve.holt@reqres.in"
+        default=os.getenv('DEFAULT_USER_EMAIL')
     )
     password: str = Field(
         alias="password",
-        default="pistol"
+        default=os.getenv('DEFAULT_USER_REGISTER_PASSWORD')
     )
 
 
@@ -24,11 +28,11 @@ class LogRegErrorUserModel(BaseModel):
 class LoginInputModel(BaseModel):
     email: str = Field(
         alias="email",
-        default="eve.holt@reqres.in"
+        default=os.getenv('DEFAULT_USER_EMAIL')
     )
     password: str = Field(
         alias="password",
-        default="cityslicka"
+        default=os.getenv('DEFAULT_USER_LOGIN_PASSWORD')
     )
 
 

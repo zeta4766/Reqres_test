@@ -1,5 +1,9 @@
 from pydantic import BaseModel
 from pydantic_settings import BaseSettings
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 class TestUser(BaseModel):
@@ -8,7 +12,7 @@ class TestUser(BaseModel):
 
 
 class Settings(BaseSettings):
-    base_url: str = "https://reqres.in"
+    base_url: str = os.getenv('BASE_URL')
 
     @property
     def api_url(self) -> str:
