@@ -1,7 +1,7 @@
 from typing import List
 from pydantic import BaseModel, HttpUrl, Field
 
-from Reqres.utils.data_generators import random_string
+from utils.data_generators import random_string
 
 
 class SupportModel(BaseModel):

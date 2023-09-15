@@ -2,11 +2,11 @@ from http import HTTPStatus
 
 import pytest
 
-from Reqres.base.api.api_requests import *
-from Reqres.settings import base_settings
-from Reqres.models.user import *
-from Reqres.utils.data_generators import random_number
-from Reqres.utils.measure_execution_time import measure_execution_time
+from base.api.api_requests import *
+from settings import base_settings
+from models.user import *
+from utils.data_generators import random_number
+from utils.measure_execution_time import measure_execution_time
 
 
 @pytest.mark.parametrize("id_number", random_number(1, 12, 3))

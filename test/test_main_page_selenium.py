@@ -3,10 +3,9 @@ import json
 import pytest
 from selenium import webdriver
 
-from Reqres.base.api.api_requests import get_api, post_api
-from Reqres.pages.main_page import MainPage
-from Reqres.utils.compare_dicts import compare_dicts
-from Reqres.utils.dictionary_endpoints import api_method
+from pages.main_page import MainPage
+from utils.compare_dicts import compare_dicts
+from utils.dictionary_endpoints import api_method
 
 
 @pytest.fixture

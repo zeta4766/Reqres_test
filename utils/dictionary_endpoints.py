@@ -1,4 +1,4 @@
-from Reqres.base.api.api_requests import *
+from base.api.api_requests import *
 
 
 def endpoints_info(endpoint_name='') -> int:

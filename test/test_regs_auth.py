@@ -2,10 +2,10 @@ from http import HTTPStatus
 
 import pytest
 
-from Reqres.base.api.api_requests import post_api
-from Reqres.models.regs_auth import *
-from Reqres.settings import base_settings
-from Reqres.utils.data_generators import random_string, random_email
+from base.api.api_requests import post_api
+from models.regs_auth import *
+from settings import base_settings
+from utils.data_generators import random_string, random_email
 
 
 def test_registration_successful():
