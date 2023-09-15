@@ -13,6 +13,7 @@ class TestUser(BaseModel):
 
 class Settings(BaseSettings):
     base_url: str = os.getenv('BASE_URL')
+    rounding_factor = 0.05
 
     @property
     def api_url(self) -> str:

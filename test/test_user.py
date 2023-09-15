@@ -82,4 +82,4 @@ def test_list_users_delay(delay):
 def test_time_list_users_delay(delay):
     time_simple = measure_execution_time(lambda: test_list_users(1, 6))
     time_delay = measure_execution_time(lambda: test_list_users_delay(delay))
-    assert time_delay - time_simple - delay < 0.05
+    assert time_delay - time_simple - delay < base_settings.rounding_factor
